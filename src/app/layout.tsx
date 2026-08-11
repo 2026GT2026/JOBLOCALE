@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "JobLocale — Local jobs, local talent",
   description:
-    "The leading local-first recruitment marketplace connecting employers with talent in their communities.",
+    "The leading recruitment marketplace connecting employers with talent in their communities.",
 };
 
 export default function RootLayout({
@@ -35,7 +35,7 @@ export default function RootLayout({
         <footer className="border-t border-border bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 text-sm text-muted flex flex-col sm:flex-row items-center justify-between gap-2">
             <p>&copy; {new Date().getFullYear()} JobLocale. All rights reserved.</p>
-            <p>The leading local-first recruitment marketplace.</p>
+            <p>The leading recruitment marketplace.</p>
           </div>
         </footer>
       </body>

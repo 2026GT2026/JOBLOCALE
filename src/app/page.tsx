@@ -25,13 +25,13 @@ export default async function HomePage() {
         <CareerPathBackground />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
           <p className="animate-fade-in-up text-brand-dark font-semibold tracking-wide text-sm uppercase mb-3">
-            Local-first recruitment
+            One stop window for recruitment
           </p>
           <h1 className="animate-fade-in-up-1 text-3xl sm:text-5xl font-bold text-slate-900 leading-tight">
             Find great jobs, right in <span className="text-brand">your community.</span>
           </h1>
           <p className="animate-fade-in-up-2 mt-4 text-lg text-muted max-w-2xl mx-auto">
-            The leading local-first recruitment marketplace connecting employers with talent in
+            The leading recruitment marketplace connecting employers with talent in
             their communities.
           </p>
 
