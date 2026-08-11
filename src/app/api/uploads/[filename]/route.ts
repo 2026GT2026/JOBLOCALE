@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "node:fs";
+import path from "node:path";
 import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
 import { resolveUploadPath } from "@/lib/uploads";
+
+const CONTENT_TYPES: Record<string, string> = {
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".pdf": "application/pdf",
+};
 
 export async function GET(
   _req: NextRequest,
@@ -55,9 +63,10 @@ export async function GET(
   }
 
   const buffer = fs.readFileSync(filePath);
+  const contentType = CONTENT_TYPES[path.extname(filename).toLowerCase()] ?? "application/octet-stream";
   return new NextResponse(buffer, {
     headers: {
-      "Content-Type": "application/octet-stream",
+      "Content-Type": contentType,
       "Content-Disposition": `inline; filename="${filename}"`,
     },
   });

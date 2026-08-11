@@ -15,6 +15,7 @@ export type ApplicationFollowUp = {
   job_id: number;
   title: string;
   company_name: string;
+  logo_path: string;
   location: string;
   status: string;
   created_at: string;
@@ -40,7 +41,7 @@ function withFollowUp(row: ApplicationRow): ApplicationFollowUp {
 export function getSeekerApplicationsWithFollowUp(seekerId: number): ApplicationFollowUp[] {
   const rows = db
     .prepare(
-      `SELECT a.id, a.job_id, j.title, e.company_name, j.location, a.status, a.created_at, a.updated_at
+      `SELECT a.id, a.job_id, j.title, e.company_name, e.logo_path, j.location, a.status, a.created_at, a.updated_at
        FROM applications a
        JOIN jobs j ON j.id = a.job_id
        JOIN employer_profiles e ON e.user_id = j.employer_id

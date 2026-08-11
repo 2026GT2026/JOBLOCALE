@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Badge, Card, EmptyState, LinkButton } from "@/components/ui";
+import { CompanyLogo } from "@/components/company-logo";
 import { formatDate } from "@/lib/format";
 import { getSeekerApplicationsWithFollowUp } from "@/lib/data/applications";
 import { FollowUpList, type FollowUpMessage } from "@/components/seeker/followup-panel";
@@ -46,11 +47,14 @@ export default async function SeekerApplicationsPage() {
             {applications.map((row) => (
               <Link key={row.id} href={`/seeker/applications/${row.id}`} className="block group">
                 <Card className="p-4 flex items-center justify-between gap-4 cursor-pointer hover:border-brand/40">
-                  <div>
-                    <p className="font-medium text-slate-900 group-hover:text-brand-dark">{row.title}</p>
-                    <p className="text-sm text-muted">
-                      {row.company_name} · {row.location} · Applied {formatDate(row.created_at)}
-                    </p>
+                  <div className="flex items-center gap-3 min-w-0">
+                    <CompanyLogo name={row.company_name} logoPath={row.logo_path} />
+                    <div className="min-w-0">
+                      <p className="font-medium text-slate-900 group-hover:text-brand-dark truncate">{row.title}</p>
+                      <p className="text-sm text-muted truncate">
+                        {row.company_name} · {row.location} · Applied {formatDate(row.created_at)}
+                      </p>
+                    </div>
                   </div>
                   <div className="flex items-center gap-3">
                     <Badge tone={statusTone[row.status] ?? "default"}>{row.status}</Badge>

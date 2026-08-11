@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge, Card, LinkButton } from "@/components/ui";
+import { CompanyLogo } from "@/components/company-logo";
 import { formatDate, formatSalary, timeAgo } from "@/lib/format";
 import { ApplyForm } from "@/components/seeker/apply-form";
 import { toggleSaveJobAction } from "@/lib/actions/seeker";
@@ -30,14 +31,17 @@ export function JobDetailPane({
         )}
 
         <div className="flex items-start justify-between gap-4">
-          <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">{job.title}</h1>
-            <p className="text-muted mt-1">
-              {job.company_name} · {job.location}
-              {job.verified === 1 && (
-                <span className="text-brand-dark font-medium"> · Verified employer</span>
-              )}
-            </p>
+          <div className="flex items-start gap-4 min-w-0">
+            <CompanyLogo name={job.company_name} logoPath={job.logo_path} size="lg" />
+            <div className="min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900">{job.title}</h1>
+              <p className="text-muted mt-1">
+                {job.company_name} · {job.location}
+                {job.verified === 1 && (
+                  <span className="text-brand-dark font-medium"> · Verified employer</span>
+                )}
+              </p>
+            </div>
           </div>
           {job.featured === 1 && <Badge tone="brand">Featured</Badge>}
         </div>

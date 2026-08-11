@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { Badge, Card } from "@/components/ui";
 import { formatDate } from "@/lib/format";
 import { BackLink } from "@/components/back-link";
+import { CompanyLogo } from "@/components/company-logo";
 import { sendFollowUpMessageAction } from "@/lib/actions/seeker";
 import { MessageThread } from "@/components/message-thread";
 
@@ -28,6 +29,7 @@ type Application = {
   updated_at: string;
   title: string;
   company_name: string;
+  logo_path: string;
   location: string;
 };
 
@@ -41,7 +43,7 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
   const application = db
     .prepare(
       `SELECT a.id, a.job_id, a.status, a.cover_letter, a.resume_filename, a.resume_path, a.created_at, a.updated_at,
-              j.title, j.location, e.company_name
+              j.title, j.location, e.company_name, e.logo_path
        FROM applications a
        JOIN jobs j ON j.id = a.job_id
        JOIN employer_profiles e ON e.user_id = j.employer_id
@@ -60,13 +62,16 @@ export default async function ApplicationDetailPage({ params }: { params: Promis
       <BackLink fallbackHref="/seeker/applications" />
 
       <div className="flex items-start justify-between gap-4 flex-wrap mb-1">
-        <div>
-          <Link href={`/jobs/${application.job_id}`} className="text-2xl font-bold text-slate-900 hover:text-brand-dark">
-            {application.title}
-          </Link>
-          <p className="text-sm text-muted mt-0.5">
-            {application.company_name} · {application.location}
-          </p>
+        <div className="flex items-center gap-3 min-w-0">
+          <CompanyLogo name={application.company_name} logoPath={application.logo_path} size="lg" />
+          <div className="min-w-0">
+            <Link href={`/jobs/${application.job_id}`} className="text-2xl font-bold text-slate-900 hover:text-brand-dark">
+              {application.title}
+            </Link>
+            <p className="text-sm text-muted mt-0.5 truncate">
+              {application.company_name} · {application.location}
+            </p>
+          </div>
         </div>
         <Badge tone={statusTone[application.status] ?? "default"}>{application.status}</Badge>
       </div>

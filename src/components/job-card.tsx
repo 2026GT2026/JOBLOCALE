@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge, Card } from "@/components/ui";
+import { CompanyLogo } from "@/components/company-logo";
 import { formatSalary, timeAgo } from "@/lib/format";
 import type { JobWithCompany } from "@/lib/data/jobs";
 
@@ -7,14 +8,17 @@ export function JobCard({ job, loggedIn = true }: { job: JobWithCompany; loggedI
   return (
     <Link href={loggedIn ? `/jobs/${job.id}` : "/login"} className="block group">
       <Card className="p-5 cursor-pointer hover:border-brand/40">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="font-semibold text-slate-900 group-hover:text-brand-dark">{job.title}</p>
-            <p className="text-sm text-muted mt-0.5">
-              {job.company_name} · {job.location}
-            </p>
+        <div className="flex items-start gap-3">
+          <CompanyLogo name={job.company_name} logoPath={job.logo_path} />
+          <div className="min-w-0 flex-1 flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-semibold text-slate-900 group-hover:text-brand-dark truncate">{job.title}</p>
+              <p className="text-sm text-muted mt-0.5 truncate">
+                {job.company_name} · {job.location}
+              </p>
+            </div>
+            {job.featured === 1 && <Badge tone="brand">Featured</Badge>}
           </div>
-          {job.featured === 1 && <Badge tone="brand">Featured</Badge>}
         </div>
 
         <div className="flex flex-wrap gap-2 mt-3">

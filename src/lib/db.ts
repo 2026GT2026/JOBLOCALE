@@ -187,66 +187,71 @@ function seedInner(db: DatabaseSync) {
   const employerSeed = [
     {
       email: "employer@brightpath.test",
-      company_name: "BrightPath Retail",
+      company_name: "Shopify",
       description:
-        "BrightPath Retail operates community supermarkets across the region, focused on friendly service and local hiring.",
+        "Shopify is a leading commerce platform, helping merchants across the region start, run, and grow their retail businesses online and in-store.",
       industry: "Retail",
       company_size: "51-200",
-      website: "https://brightpathretail.example",
+      website: "https://www.shopify.com",
       location: "Lagos, Nigeria",
       verified: 1,
       joinedDaysAgo: 60,
+      logo: "/logos/shopify.svg",
     },
     {
       email: "hr@rivertech.test",
-      company_name: "RiverTech Solutions",
-      description: "RiverTech Solutions builds software for logistics and fintech companies across West Africa.",
+      company_name: "Google",
+      description: "Google builds products and platforms used by billions, with engineering teams working on logistics, fintech, and cloud across West Africa.",
       industry: "Technology",
       company_size: "11-50",
-      website: "https://rivertech.example",
+      website: "https://www.google.com",
       location: "Accra, Ghana",
       verified: 0,
       joinedDaysAgo: 12,
+      logo: "/logos/google.svg",
     },
     {
       email: "careers@sunnydale.test",
-      company_name: "Sunnydale Health Clinics",
-      description: "A network of community health clinics providing affordable primary care across the region.",
+      company_name: "GSK",
+      description: "GSK is a global healthcare company delivering vaccines, medicines, and community care across the region.",
       industry: "Healthcare",
       company_size: "201-500",
-      website: "https://sunnydaleclinics.example",
+      website: "https://www.gsk.com",
       location: "Nairobi, Kenya",
       verified: 1,
       joinedDaysAgo: 45,
+      logo: "/logos/gsk.svg",
     },
     {
       email: "jobs@harborhotels.test",
-      company_name: "Harbor Hotels Group",
-      description: "Boutique hotels and hospitality services across coastal cities.",
+      company_name: "Marriott",
+      description: "Marriott International operates hotels and hospitality services across coastal and city destinations.",
       industry: "Hospitality",
       company_size: "201-500",
-      website: "https://harborhotels.example",
+      website: "https://www.marriott.com",
       location: "Mombasa, Kenya",
       verified: 0,
       joinedDaysAgo: 4,
+      logo: "/logos/marriott.svg",
     },
     {
       email: "hiring@primecapital.test",
-      company_name: "Prime Capital Finance",
-      description: "A regional finance and lending company serving small businesses.",
+      company_name: "Mastercard",
+      description: "Mastercard is a global technology company in the payments industry, connecting consumers, businesses, and lenders across markets.",
       industry: "Finance",
       company_size: "11-50",
-      website: "https://primecapital.example",
+      website: "https://www.mastercard.com",
       location: "Lagos, Nigeria",
       verified: 1,
       joinedDaysAgo: 30,
+      logo: "/logos/mastercard.svg",
     },
   ];
 
   const employerIds: number[] = [];
   const insertEmployerProfile = db.prepare(
-    `INSERT INTO employer_profiles (user_id, company_name, description, industry, company_size, website, location, verified)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+    `INSERT INTO employer_profiles (user_id, company_name, description, industry, company_size, website, location, verified, logo_path)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
   );
   for (const e of employerSeed) {
     const id = Number(
@@ -260,7 +265,8 @@ function seedInner(db: DatabaseSync) {
       e.company_size,
       e.website,
       e.location,
-      e.verified
+      e.verified,
+      e.logo
     );
     employerIds.push(id);
   }

@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getFeaturedJobs, searchJobs } from "@/lib/data/jobs";
 import { getSeekerFollowUpSummary } from "@/lib/data/applications";
 import { Badge, Card } from "@/components/ui";
+import { CompanyLogo } from "@/components/company-logo";
 import { formatSalary, timeAgo } from "@/lib/format";
 import { ProfileStrength } from "@/components/seeker/profile-strength";
 import { FollowUpSummaryCard } from "@/components/seeker/followup-panel";
@@ -64,20 +65,23 @@ export default async function SeekerDashboardPage() {
                   href={`/jobs?selected=${job.id}`}
                   className="p-4 flex items-center justify-between gap-4 hover:bg-slate-50 transition-colors duration-200 group"
                 >
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <p className="font-medium text-slate-900 group-hover:text-brand-dark truncate min-w-0">
-                        {job.title}
+                  <div className="flex-1 min-w-0 flex items-center gap-3">
+                    <CompanyLogo name={job.company_name} logoPath={job.logo_path} />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <p className="font-medium text-slate-900 group-hover:text-brand-dark truncate min-w-0">
+                          {job.title}
+                        </p>
+                        {job.featured === 1 && (
+                          <span className="shrink-0">
+                            <Badge tone="brand">Featured</Badge>
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-muted mt-0.5 truncate">
+                        {job.company_name} · {job.location}
                       </p>
-                      {job.featured === 1 && (
-                        <span className="shrink-0">
-                          <Badge tone="brand">Featured</Badge>
-                        </span>
-                      )}
                     </div>
-                    <p className="text-sm text-muted mt-0.5 truncate">
-                      {job.company_name} · {job.location}
-                    </p>
                   </div>
                   <div className="flex items-center gap-4 shrink-0 text-sm">
                     <span className="text-slate-700 font-medium hidden sm:inline">

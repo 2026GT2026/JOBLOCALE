@@ -8,6 +8,7 @@ import {
 } from "@/lib/data/jobs";
 import { loadJobDetail } from "@/lib/data/job-detail";
 import { JobDetailPane } from "@/components/job-detail-pane";
+import { CompanyLogo } from "@/components/company-logo";
 import { Badge, Card, EmptyState, Select } from "@/components/ui";
 import { formatSalary, timeAgo } from "@/lib/format";
 import { getCurrentUser } from "@/lib/auth";
@@ -172,13 +173,18 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
                       isActive ? "border-brand ring-2 ring-brand/20" : "hover:border-brand/40"
                     }`}
                   >
-                    <div className="flex items-start justify-between gap-2">
-                      <p className="font-semibold text-slate-900">{job.title}</p>
-                      {job.featured === 1 && <Badge tone="brand">Featured</Badge>}
+                    <div className="flex items-start gap-3">
+                      <CompanyLogo name={job.company_name} logoPath={job.logo_path} />
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="font-semibold text-slate-900 truncate">{job.title}</p>
+                          {job.featured === 1 && <Badge tone="brand">Featured</Badge>}
+                        </div>
+                        <p className="text-sm text-muted mt-0.5 truncate">
+                          {job.company_name} · {job.location}
+                        </p>
+                      </div>
                     </div>
-                    <p className="text-sm text-muted mt-0.5">
-                      {job.company_name} · {job.location}
-                    </p>
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       <Badge>{job.employment_type}</Badge>
                       <Badge>{job.remote_type}</Badge>
@@ -220,7 +226,9 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
               <span aria-hidden>&larr;</span> Back to results
             </Link>
             {detail ? (
-              <JobDetailPane data={detail} user={user} />
+              <div key={effectiveId} className="animate-detail-swap">
+                <JobDetailPane data={detail} user={user} />
+              </div>
             ) : (
               <Card className="p-10 text-center text-muted text-sm">Select a job to view details.</Card>
             )}

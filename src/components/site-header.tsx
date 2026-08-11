@@ -22,6 +22,9 @@ export async function SiteHeader() {
           <Link href="/jobs" className="relative hover:text-brand-dark transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-brand after:transition-all after:duration-200 hover:after:w-full">
             Find Jobs
           </Link>
+          <Link href="/companies" className="relative hover:text-brand-dark transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-brand after:transition-all after:duration-200 hover:after:w-full">
+            Companies
+          </Link>
           {user?.role === "employer" && (
             <Link href="/employer/jobs" className="relative hover:text-brand-dark transition-colors duration-200 after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-0 after:bg-brand after:transition-all after:duration-200 hover:after:w-full">
               My Job Postings

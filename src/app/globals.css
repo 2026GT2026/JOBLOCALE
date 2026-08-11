@@ -51,6 +51,27 @@ body {
   }
 }
 
+@keyframes detail-swap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-detail-swap {
+  animation: detail-swap 0.22s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-detail-swap {
+    animation: none;
+  }
+}
+
 @keyframes float {
   0%,
   100% {

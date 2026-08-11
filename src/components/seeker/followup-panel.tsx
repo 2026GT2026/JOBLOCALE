@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Badge, Card } from "@/components/ui";
+import { CompanyLogo } from "@/components/company-logo";
 import { STALE_DAYS_THRESHOLD, type ApplicationFollowUp } from "@/lib/data/applications";
 import { sendFollowUpMessageAction } from "@/lib/actions/seeker";
 import { MessageThread, type ThreadMessage } from "@/components/message-thread";
@@ -56,13 +57,16 @@ export function FollowUpList({
         return (
           <Card key={app.id} className="p-4">
             <div className="flex items-start justify-between gap-4 flex-wrap">
-              <div>
-                <Link href={`/jobs/${app.job_id}`} className="font-medium text-slate-900 hover:text-brand-dark">
-                  {app.title}
-                </Link>
-                <p className="text-sm text-muted">
-                  {app.company_name} · {app.location}
-                </p>
+              <div className="flex items-center gap-3 min-w-0">
+                <CompanyLogo name={app.company_name} logoPath={app.logo_path} />
+                <div className="min-w-0">
+                  <Link href={`/jobs/${app.job_id}`} className="font-medium text-slate-900 hover:text-brand-dark">
+                    {app.title}
+                  </Link>
+                  <p className="text-sm text-muted truncate">
+                    {app.company_name} · {app.location}
+                  </p>
+                </div>
               </div>
               <Badge tone={app.isRejected ? "danger" : "warning"}>
                 {app.isRejected ? "Rejected" : `No response in ${app.daysSinceUpdate} days`}
